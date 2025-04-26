@@ -1,12 +1,6 @@
 # claudex
 
-A CLI proxy to run Claude API requests (Anthropic-style) against OpenAI-compatible LLM providers (like OpenRouter), either for local development, automation, or as a bridge to OpenAI tooling.
-
-## Features
-
-- FastAPI-based proxy for low-latency, robust relaying.
-- Converts Anthropic Claude v3-style and Claude tool-calls API to OpenAI-compatible requests.
-- Flexible environment variable configuration for provider settings.
+A CLI proxy to run Claude API requests (Anthropic-style) against OpenAI-compatible LLM providers (like OpenRouter), enabling Claude Code to work with any OpenAI-compatible endpoint.
 
 ## Requirements
 
@@ -17,7 +11,7 @@ A CLI proxy to run Claude API requests (Anthropic-style) against OpenAI-compatib
 ## Setup
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/nenadilic84/claudex.git
 cd claudex
 python3 -m venv .venv
 source .venv/bin/activate
@@ -42,7 +36,7 @@ After setup and installing dependencies, you can run the proxy in either of thes
 
 ```bash
 # Run as module:
-python -m claudex --host 0.0.0.0 --port 8082 --reload
+python -m claudex.main --host 0.0.0.0 --port 8082 --reload
 
 # Or (if installed as a script):
 claudex --host 0.0.0.0 --port 8082 --reload
@@ -54,12 +48,32 @@ claudex --host 0.0.0.0 --port 8082 --reload
 uvicorn claudex.proxy:app --host 0.0.0.0 --port 8082 --reload
 ```
 
----
+### Using with Claude CLI
 
-In a second terminal, you can now use the Claude CLI tool with this:
+In a second terminal, you can now use the Claude CLI tool with this proxy:
 
 ```bash
 ANTHROPIC_BASE_URL=http://localhost:8082 DISABLE_PROMPT_CACHING=1 claude
 ```
 
----
+This allows you to use Claude Code with any OpenAI-compatible LLM provider, such as:
+- OpenRouter
+- Together.ai
+- Local LLM endpoints
+- Any other OpenAI-compatible API
+
+## API Endpoints
+
+- `GET /` - Health check endpoint
+- `POST /v1/messages` - Main endpoint that receives Anthropic API requests, converts them to OpenAI format, and returns converted responses
+
+## Development
+
+Run tests:
+```bash
+pytest
+```
+
+## License
+
+MIT License - Copyright (c) 2025 nenadilic84

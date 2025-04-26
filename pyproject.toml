@@ -2,7 +2,7 @@
 name = "claudex"
 version = "0.1.0"
 description = "Anthropic Claude/OpenRouter proxy toolkit for the CLI"
-authors = [{ name="Your Name" }]
+authors = [{ name="nenadilic84" }]
 
 dependencies = [
     "fastapi>=0.95.0",

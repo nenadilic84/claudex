@@ -35,12 +35,27 @@ After setup and installing dependencies, you can run the proxy in either of thes
 ### 1. Recommended: Run via the CLI/main entrypoint
 
 ```bash
-# Run as module:
+# Run as module with environment variables:
 python -m claudex.main --host 0.0.0.0 --port 8082 --reload
 
-# Or (if installed as a script):
-claudex --host 0.0.0.0 --port 8082 --reload
+# Or with command line arguments:
+python -m claudex.main --target-api-base https://api.openrouter.ai/v1 --big-model openai/gpt-4.1 --small-model openai/gpt-4.1-mini --log-level INFO
+
+# Or if installed as a script:
+claudex --host 0.0.0.0 --port 8082 --target-api-base https://api.openrouter.ai/v1 --big-model openai/gpt-4.1 --small-model openai/gpt-4.1-mini
 ```
+
+#### CLI Options
+
+- `--host` - Host to bind (default: 0.0.0.0)
+- `--port` - Port to bind (default: 8082)
+- `--reload` - Enable live-reload for development
+- `--target-api-base` - Base URL for target OpenAI-compatible API
+- `--big-model` - Target model for Claude Sonnet/larger models
+- `--small-model` - Target model for Claude Haiku/smaller models
+- `--log-level` - Logging level (DEBUG, INFO, WARNING, ERROR)
+
+Note: The API key must still be provided via the TARGET_API_KEY environment variable for security reasons.
 
 ### 2. Alternative: Run directly with Uvicorn
 
